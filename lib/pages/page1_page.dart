@@ -1,3 +1,5 @@
+import 'package:app_estados/models/User.dart';
+import 'package:app_estados/services/userService.dart';
 import 'package:flutter/material.dart';
 class Page1Page extends StatelessWidget {
 
@@ -6,9 +8,7 @@ class Page1Page extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Page 1'),
       ),
-      body:Center(
-        child:_ContainerWidget()
-      ),
+      body:userService.existUser? _InformationUser(userService.user):_EmptyWidget(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.publish),
         onPressed: ()=> Navigator.pushNamed(context, 'page2')
@@ -18,7 +18,23 @@ class Page1Page extends StatelessWidget {
   }
 }
 
-class _ContainerWidget extends StatelessWidget {
+class _EmptyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Text('User not exist'),
+      ),
+    );
+  }
+}
+
+class _InformationUser extends StatelessWidget {
+
+  
+  final User? user;
+  const _InformationUser(this.user);
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +47,8 @@ class _ContainerWidget extends StatelessWidget {
         children: [
           Text('General',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
           Divider(),
-          ListTile(title: Text('Nombre : '),),
-          ListTile(title: Text('Edad : '),),
+          ListTile(title: Text('Nombre : ${user?.name}'),),
+          ListTile(title: Text('Edad : ${user?.age}'),),
 
           Text('Profesiones',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
           Divider(),
