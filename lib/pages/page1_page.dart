@@ -1,14 +1,16 @@
+import 'package:app_estados/services/userService.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 class Page1Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userService = Provider.of<UserService>(context);
+
     return Scaffold(
       appBar: AppBar(title: Text('Page 1'),
       ),
-      body:Center(
-        child:_ContainerWidget()
-      ),
+      body:userService.existUser? _InformationUser():_EmptyUser(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.publish),
         onPressed: ()=> Navigator.pushNamed(context, 'page2')
@@ -18,7 +20,19 @@ class Page1Page extends StatelessWidget {
   }
 }
 
-class _ContainerWidget extends StatelessWidget {
+class _EmptyUser extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Text('No hay usuario'),
+      ),
+    );
+  }
+}
+
+class _InformationUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
