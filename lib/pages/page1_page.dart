@@ -8,7 +8,13 @@ class Page1Page extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Page 1'),
       ),
-      body:userService.existUser? _InformationUser(userService.user):_EmptyWidget(),
+      body: StreamBuilder(
+        stream: userService.userStream,
+        builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
+          return snapshot.hasData?_InformationUser(snapshot.data):_EmptyWidget();
+        },
+      ),
+
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.publish),
         onPressed: ()=> Navigator.pushNamed(context, 'page2')
@@ -30,7 +36,6 @@ class _EmptyWidget extends StatelessWidget {
 }
 
 class _InformationUser extends StatelessWidget {
-
   
   final User? user;
   const _InformationUser(this.user);
