@@ -1,25 +1,38 @@
+import 'package:app_estados/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
-class Page1Page extends StatelessWidget {
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+class Page1Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Page 1'),
+      appBar: AppBar(
+        title: Text('Page 1'),
       ),
-      body:Center(
-        child:_ContainerWidget()
+      body: BlocBuilder<UserBloc, UserState>(
+        builder: (context, state) {
+          return state.existUser ? _InformationUser() : _EmptyUser();
+        },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.publish),
-        onPressed: ()=> Navigator.pushNamed(context, 'page2')
-      ),
-
+          child: Icon(Icons.publish),
+          onPressed: () => Navigator.pushNamed(context, 'page2')),
     );
   }
 }
 
-class _ContainerWidget extends StatelessWidget {
+class _EmptyUser extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Text('No hay usuario activo'),
+      ),
+    );
+  }
+}
 
+class _InformationUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,21 +42,33 @@ class _ContainerWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('General',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+          Text(
+            'General',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           Divider(),
-          ListTile(title: Text('Nombre : '),),
-          ListTile(title: Text('Edad : '),),
-
-          Text('Profesiones',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+          ListTile(
+            title: Text('Nombre : '),
+          ),
+          ListTile(
+            title: Text('Edad : '),
+          ),
+          Text(
+            'Profesiones',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           Divider(),
-          ListTile(title: Text('Profesion 1: '),),
-          ListTile(title: Text('Profesion 2 : '),),
-          ListTile(title: Text('Profesion 3 : '),),
-          
-          
+          ListTile(
+            title: Text('Profesion 1: '),
+          ),
+          ListTile(
+            title: Text('Profesion 2 : '),
+          ),
+          ListTile(
+            title: Text('Profesion 3 : '),
+          ),
         ],
       ),
-
     );
   }
 }
