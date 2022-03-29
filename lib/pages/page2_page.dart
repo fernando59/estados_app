@@ -22,12 +22,14 @@ class Page2Page extends StatelessWidget {
               color: Colors.blue,
               ),
             MaterialButton(
-              onPressed: ()=>{},
+              onPressed: ()=> BlocProvider.of<UserBloc>(context).add(ChangeUserAge(30)) ,
               child: Text('Cambiar Edad',style: TextStyle(color: Colors.white),),
               color: Colors.blue,
               ),
             MaterialButton(
-              onPressed: ()=>{},
+              onPressed: (){
+                BlocProvider.of<UserBloc>(context).add(AddProfession('Dart'));
+              },
               child: Text('Añadir Profesion',style: TextStyle(color: Colors.white),),
               color: Colors.blue,
               ),
