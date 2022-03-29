@@ -1,4 +1,5 @@
 import 'package:app_estados/bloc/user/user_bloc.dart';
+import 'package:app_estados/models/User.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +12,7 @@ class Page1Page extends StatelessWidget {
       ),
       body: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
-          return state.existUser ? _InformationUser() : _EmptyUser();
+          return state.existUser ? _InformationUser(user: state.user!,) : _EmptyUser();
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -33,6 +34,10 @@ class _EmptyUser extends StatelessWidget {
 }
 
 class _InformationUser extends StatelessWidget {
+  final User user;
+
+  const _InformationUser({Key? key, required this.user}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -48,25 +53,21 @@ class _InformationUser extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Nombre : '),
+            title: Text('Nombre : ${user.name} '),
           ),
           ListTile(
-            title: Text('Edad : '),
+            title: Text('Edad : ${user.age}'),
           ),
           Text(
             'Profesiones',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           Divider(),
-          ListTile(
-            title: Text('Profesion 1: '),
-          ),
-          ListTile(
-            title: Text('Profesion 2 : '),
-          ),
-          ListTile(
-            title: Text('Profesion 3 : '),
-          ),
+          ...user.professions
+              .map((profession) => ListTile(
+                    title: Text('Profesion : ${profession}'),
+                  ))
+              .toList(),
         ],
       ),
     );

@@ -10,7 +10,7 @@ class UserBloc extends Bloc<UserEvent,UserState>{
 
   UserBloc() : super(UsertInitialState()){
     on<ActivateUser>((event, emit){
-      // emit(UserState(existUser: true, user: event.user));
+      emit(UserSetState(user: event.user));
     });
   }
 

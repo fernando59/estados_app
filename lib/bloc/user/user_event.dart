@@ -10,6 +10,4 @@ class ActivateUser extends UserEvent{
   final User user;
 
   ActivateUser(this.user);
-
-
 }

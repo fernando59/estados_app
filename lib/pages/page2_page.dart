@@ -1,4 +1,7 @@
+import 'package:app_estados/bloc/user/user_bloc.dart';
+import 'package:app_estados/models/User.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Page2Page extends StatelessWidget {
 
@@ -11,7 +14,10 @@ class Page2Page extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MaterialButton(
-              onPressed: ()=>{},
+              onPressed: (){
+                BlocProvider.of<UserBloc>(context).add(ActivateUser(User(name: 'Flutter',age: 20,professions: [])));
+
+              },
               child: Text('Establecer Usuario',style: TextStyle(color: Colors.white),),
               color: Colors.blue,
               ),
